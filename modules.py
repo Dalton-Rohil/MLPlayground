@@ -29,3 +29,24 @@ class AccuracyEvaluator:
     def evaluate(self, model, data):
         preds = model.predict(data)
         return accuracy_score(data["y"], preds)
+
+import pandas as pd
+
+class CSVDataLoader:
+    def load(self, file):
+        df = pd.read_csv(file)
+        X = df.iloc[:, :-1].values  # All columns except last as features
+        y = df.iloc[:, -1].values   # Last column as target
+        return {"X": X, "y": y}
+    
+from sklearn.tree import DecisionTreeClassifier
+
+class DecisionTreeModel:
+    def __init__(self):
+        self.model = DecisionTreeClassifier()
+
+    def fit(self, data):
+        self.model.fit(data["X"], data["y"])
+
+    def predict(self, data):
+        return self.model.predict(data["X"])
