@@ -26,13 +26,15 @@ streamlit run app.py
 
 
 ## Usage
--pen your browser at localhost:8501.
+-Open your browser at localhost:8501.
 -Select a data source (Synthetic or CSV).
--Choose a preprocessor and model, then click "Run Pipeline" to see the accuracy.
+-Choose a preprocessor and model, then click "Run Pipeline".
+-View the accuracy and confusion matrix.
 
 ## Contributing
 -Fork the repo and submit a pull request.
 -Add new modules in modules.py—see existing ones for examples.
+-Suggestions? Open an issue!
 
 ## License
 MIT
