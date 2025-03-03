@@ -1,9 +1,10 @@
 import streamlit as st
 from pipeline import Pipeline
-from modules import SyntheticDataLoader, CSVDataLoader, Normalizer, LogisticModel, AccuracyEvaluator
+from modules import SyntheticDataLoader, CSVDataLoader, Normalizer, LogisticModel, AccuracyEvaluator, DecisionTreeModel
+import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 
-# Additional model for variety
+# DecisionTreeModel (if not already in modules.py)
 class DecisionTreeModel:
     def __init__(self):
         self.model = DecisionTreeClassifier()
@@ -33,7 +34,7 @@ model_option = st.selectbox("Choose model", ["Logistic Regression", "Decision Tr
 # Map selections to classes
 preprocessors = {"Normalizer": Normalizer()}
 models = {"Logistic Regression": LogisticModel(), "Decision Tree": DecisionTreeModel()}
-evaluator = AccuracyEvaluator()  # Fixed for now
+evaluator = AccuracyEvaluator()
 
 if st.button("Run Pipeline"):
     # Data loader
@@ -47,5 +48,17 @@ if st.button("Run Pipeline"):
         evaluator=evaluator
     )
     data = uploaded_file if data_source == "Upload CSV" else None
-    result = pipeline.run(data)
-    st.write(f"Accuracy: {result:.2f}")
+    results = pipeline.run(data)
+
+    # Display results
+    st.write(f"Accuracy: {results['accuracy']:.2f}")
+
+    # Plot confusion matrix
+    fig, ax = plt.subplots()
+    ax.matshow(results["confusion_matrix"], cmap="Blues")
+    for (i, j), val in np.ndenumerate(results["confusion_matrix"]):
+        ax.text(j, i, f"{val}", ha="center", va="center", color="black")
+    ax.set_xlabel("Predicted")
+    ax.set_ylabel("Actual")
+    ax.set_title("Confusion Matrix")
+    st.pyplot(fig)

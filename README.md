@@ -4,7 +4,8 @@ A Streamlit web app to experiment with modular machine learning pipelines.
 
 ## Features
 - Build custom ML pipelines with interchangeable components.
-- Current support: Synthetic data, normalization, logistic regression, accuracy evaluation.
+- Supports synthetic data or CSV uploads.
+- Choose preprocessors (Normalizer) and models (Logistic Regression, Decision Tree).
 
 ## Setup
 1. Clone the repo:
@@ -12,12 +13,28 @@ A Streamlit web app to experiment with modular machine learning pipelines.
    git clone https://github.com/yourusername/MLPlayground.git
    cd MLPlayground
 
+## Set up virtual environment:
+python -m venv venv
+source venv/bin/activate  # Mac/Linux
+venv\Scripts\activate     # Windows
+
+## Install dependencies:
+pip install -r requirements.txt
+
+## Run the app:
+streamlit run app.py
 
 
-#### Steps
-1. Open `README.md`, paste the above, replace `yourusername` with your GitHub username.
-2. Commit on `main`:
-   ```bash
-   git add README.md
-   git commit -m "Added initial README"
-   git push origin main
+## Usage
+-Open your browser at localhost:8501.
+-Select a data source (Synthetic or CSV).
+-Choose a preprocessor and model, then click "Run Pipeline".
+-View the accuracy and confusion matrix.
+
+## Contributing
+-Fork the repo and submit a pull request.
+-Add new modules in modules.py—see existing ones for examples.
+-Suggestions? Open an issue!
+
+## License
+MIT

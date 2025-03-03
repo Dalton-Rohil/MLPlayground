@@ -50,3 +50,12 @@ class DecisionTreeModel:
 
     def predict(self, data):
         return self.model.predict(data["X"])
+    
+from sklearn.metrics import accuracy_score, confusion_matrix
+
+class AccuracyEvaluator:
+    def evaluate(self, model, data):
+        preds = model.predict(data)
+        accuracy = accuracy_score(data["y"], preds)
+        cm = confusion_matrix(data["y"], preds)
+        return {"accuracy": accuracy, "confusion_matrix": cm, "predictions": preds}
